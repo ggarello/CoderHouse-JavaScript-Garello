@@ -104,7 +104,7 @@
 
   .titulo, .fila {
     display: grid;
-    grid-template-columns: 5% 15% 15% 20% 5% 10% 30% auto;
+    grid-template-columns: 5% 15% 15% 20% 10% 35% auto;
     align-items: center;
     font-weight: 700;
     color: #2b5876;
@@ -117,6 +117,16 @@
     position: sticky;
     top: 0;
     z-index: 1;
+    background: #f7fafd;
+  }
+
+  .tabla_ARS__titulo, .tabla_USD__titulo {
+    display: fixed;
+    align-items: center;
+    font-weight: 700;
+    color: #2b5876;
+    border-bottom: 2px solid #b2bec3;
+    padding: 0.5rem 0;
     background: #f7fafd;
   }
 

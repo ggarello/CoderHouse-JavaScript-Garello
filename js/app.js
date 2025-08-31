@@ -72,8 +72,7 @@ function renderCarteras() {
       <div class="colFecha"><p>${movimiento.fecha}</p></div>
       <div class="colTipo"><p>${movimiento.tipo}</p></div>
       <div class="colCategoria"><p>${movimiento.categoria}</p></div>
-      <div class="colMoneda "><p>${movimiento.moneda}</p></div>
-      <div class="colMonto"><p>${movimiento.monto}</p></div>
+      <div class="colMonto"><p>${formatCurrency(movimiento.monto, movimiento.moneda)}</p></div>
       <div class="colObservaciones"><p>${movimiento.observaciones}</p></div>
     `;
 
@@ -92,12 +91,22 @@ function renderCarteras() {
   });
 }
 
+//PAra aplicar formato currency
+
 function deleteElement(id) {
   cartera = cartera.filter(movimiento => movimiento.id !== id);
   renderCarteras();
 }
 
-
+function formatCurrency(valor, moneda) {
+  let locale = "es-AR";
+  let currency = moneda === "USD" ? "USD" : "ARS";
+  return new Intl.NumberFormat(locale, {
+    style: "currency",
+    currency: currency,
+    minimumFractionDigits: 2
+  }).format(valor);
+}
 
 //FILTRO DE MOTIVO EN BASE A QUÉ TIPO DE MOVIMIENTO ES
 const tipoSelector = document.getElementById("tipo");
