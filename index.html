@@ -8,8 +8,72 @@
     <title>Simulador</title>
 </head>
 <body>
-    <h1>SIMULADOR</h1>
-    <p>Presione F12 para abrir la terminal<p>
-    <script src="js/script.js"></script>
+    <h1>SEGUIMIENTO DE CARTERA</h1>
+    <div class="form-div">
+        <form id="formulario">
+            <div>
+                <label for="tipo">Tipo de movimiento:</label>
+                <select id="tipo" name="tipo">
+                    <option value="ingreso"> Ingreso </option>
+                    <option value="egreso"> Egreso</option>
+                </select>
+            </div>
+            <div>
+                <label for="fecha">Fecha:</label>
+                <input id="fecha" name="fecha" type="date" required>
+            </div>
+            
+            <div>
+                <label for="moneda">Moneda:</label>
+                <select id="moneda" name="moneda">
+                    <option value="ARS">ARS</option>
+                    <option value="USD">USD</option>
+                </select>
+            </div>
+            <div>
+                <label for="monto">Monto:</label>
+                <input id="monto" name="monto" type="number" required>
+            </div>
+            <div>
+                <label for="categoria">Categoría:</label>
+                <select id="categoria" name="categoria">
+                </select>
+            </div>
+            <div>
+                <label for="observaciones">Observaciones:</label>
+                <input id="observaciones" name="observaciones" type="text" required>
+            </div>
+            <button type="submit">Guardar</button>
+        </form>
+
+        <div class="Cartera">
+            <p>Cartera</p>
+            <div class="tabla">
+                <div id="tabla_ARS">
+                    <div class="titulo">
+                            <div class="colId"><p>id</p></div>
+                            <div class="colFecha"><p>Fecha</p></div>
+                            <div class="colTipo"><p>Movimiento</p></div>
+                            <div class="colCategoria"><p>Motivo</p></div>
+                            <div class="colMoneda"><p>Moneda</p></div>
+                            <div class="colMonto"><p>Monto</p></div>
+                            <div class="colObservaciones"><p>Observaciones</p></div>
+                    </div>
+                </div>
+                <div id="tabla_USD">
+                    <div class="titulo">
+                        <div class="colId"><p>id</p></div>
+                        <div class="colFecha"><p>Fecha</p></div>
+                        <div class="colTipo"><p>Movimiento</p></div>
+                        <div class="colCategoria"><p>Motivo</p></div>
+                        <div class="colMoneda"><p>Moneda</p></div>
+                        <div class="colMonto"><p>Monto</p></div>
+                        <div class="colObservaciones"><p>Observaciones</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
 </body>
 </html>

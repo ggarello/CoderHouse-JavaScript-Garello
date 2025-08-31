@@ -1,0 +1,92 @@
+[
+    {
+        "id": 1,
+        "tipo": "ingreso",
+        "monto": 986000,
+        "moneda": "ARS",
+        "fecha": "2025-07-29",
+        "categoria": "Honorarios",
+        "observaciones": "Observación 1"
+    },
+    {
+        "id": 2,
+        "tipo": "ingreso",
+        "monto": 567000,
+        "moneda": "ARS",
+        "fecha": "2025-07-30",
+        "categoria": "Honorarios",
+        "observaciones": "Observación 2"
+    },
+    {
+        "id": 3,
+        "tipo": "egreso",
+        "monto": 125301.99,
+        "moneda": "ARS",
+        "fecha": "2025-08-05",
+        "categoria": "Licencias",
+        "observaciones": "Observación 3"
+    },
+    {
+        "id": 4,
+        "tipo": "ingreso",
+        "monto": 152033.32,
+        "moneda": "ARS",
+        "fecha": "2025-08-100",
+        "categoria": "Honorarios",
+        "observaciones": "Observación 4"
+    },
+    {
+        "id": 5,
+        "tipo": "egreso",
+        "monto": 334466.98,
+        "moneda": "ARS",
+        "fecha": "2025-08-12",
+        "categoria": "Supermercados",
+        "observaciones": "Observación 5"
+    },
+    {
+        "id": 6,
+        "tipo": "ingreso",
+        "monto": 1687000.66,
+        "moneda": "ARS",
+        "fecha": "2025-08-12",
+        "categoria": "Honorarios",
+        "observaciones": "Observación 6"
+    },
+    {
+        "id": 7,
+        "tipo": "egreso",
+        "monto": 263415.54,
+        "moneda": "ARS",
+        "fecha": "2025-08-16",
+        "categoria": "Supermercados",
+        "observaciones": "Observación 7"
+    },
+    {
+        "id": 8,
+        "tipo": "egreso",
+        "monto": 457000.76,
+        "moneda": "ARS",
+        "fecha": "2025-08-25",
+        "categoria": "Mantenimientos",
+        "observaciones": "Observación 8"
+    },
+    {
+        "id": 9,
+        "tipo": "ingreso",
+        "monto": 542.55,
+        "moneda": "USD",
+        "fecha": "2025-08-04",
+        "categoria": "Honorarios",
+        "observaciones": "Juju! El pibe se fue international y gana en dólares"
+    },
+    {
+        "id": 10,
+        "tipo": "egreso",
+        "monto": 20.45,
+        "moneda": "USD",
+        "fecha": "2025-08-12",
+        "categoria": "Licencias",
+        "observaciones": "Licencia de Microsoft"
+    }
+]
