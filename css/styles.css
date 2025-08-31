@@ -25,6 +25,7 @@
     border-radius: 18px;
     box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
     padding: 2rem;
+    
   }
 
   form {
@@ -32,6 +33,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 1.2rem 2rem;
     margin-bottom: 2rem;
+    
   }
 
   form div {
@@ -79,9 +81,11 @@
 
   .Cartera {
     margin-top: 2rem;
+    border-bottom: 4px solid #b2bec3;
+    border-top: 4px solid #b2bec3;
   }
 
-  .Cartera > p {
+  .tituloSeccion{
     font-size: 1.3rem;
     font-weight: 600;
     color: #4e4376;
@@ -104,7 +108,7 @@
 
   .titulo, .fila {
     display: grid;
-    grid-template-columns: 5% 15% 15% 20% 10% 35% auto;
+    grid-template-columns: 5% 15% 15% 10% 15% 40% auto;
     align-items: center;
     font-weight: 700;
     color: #2b5876;
@@ -173,6 +177,42 @@
 
   .delete:hover {
     background: #d35400;
+  }
+
+  /*RESUMEN DE CUENTAS */
+
+  .filaResumen {
+    display: flex;
+    font-weight: 400;
+    font-size: 15px;
+    color: #222;
+    background: #e0eafc;
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    margin-left: 1rem;
+    padding: 0.4rem 0.2rem;
+    transition: background 0.2s;
+  }
+
+  .colMoneda__resumen, .colMonto__resumen{
+    margin-left: 1rem;
+    padding: 1%;
+    font-size: 20px;
+  }
+
+  .colMoneda__resumen{
+    font-weight: bold;
+    width: 5%;
+  }
+
+  .colMonto__resumen{
+    text-align: right;
+    margin-right: 5%;
+    width: 95%;
+  }
+
+  .filaResumen:hover {
+    background: #cfdef3;
   }
 
   /* Responsive */

@@ -7,9 +7,11 @@ fetch('./json/cartera.json')
   .then(data => {
     cartera = data;
     movId = cartera.length+1; 
-    console.log(movId);
+
+
     renderCarteras();
-    console.log("Cartera cargada: ", cartera);
+
+    resumenDeCuentas();
   })
   .catch(error => console.error("Error cargando JSON ", error))
 
@@ -47,6 +49,7 @@ form.addEventListener("submit", function(event) {
 
   cartera.push(movimiento);
   renderCarteras();
+  resumenDeCuentas();
   form.reset();
   console.log(movimiento);
 });
@@ -89,6 +92,8 @@ function renderCarteras() {
       tablaUSD.appendChild(movDiv);
     }
   });
+
+  
 }
 
 //PAra aplicar formato currency
@@ -96,6 +101,7 @@ function renderCarteras() {
 function deleteElement(id) {
   cartera = cartera.filter(movimiento => movimiento.id !== id);
   renderCarteras();
+  resumenDeCuentas();
 }
 
 function formatCurrency(valor, moneda) {
@@ -133,7 +139,6 @@ tipoSelector.addEventListener("change", function(){
 
 function filterSelectorOptions(){
   const tipo = tipoSelector.value;
-  console.log(tipo)
   let opciones = [];
 
   if ( tipo === "ingreso"){
@@ -152,7 +157,53 @@ function filterSelectorOptions(){
     categoriaSelector.appendChild(option)
   });
 }
-filterSelectorOptions()
 
+
+
+//RESUMEN DE CUENTAS
+
+function resumenDeCuentas(){
+
+  const mon = [... new Set(cartera.map(el => el.moneda))];
+  console.log(mon)
+
+  const filaDiv = document.getElementById("tablaResumen")
+  filaDiv.innerText = ``
+
+  mon.forEach(elemento => {
+    const monDiv = document.createElement("div");
+    monDiv.classList.add("filaResumen");
+
+
+    const el = {
+      moneda: elemento,
+      monto: cartera
+        .filter(c => c.moneda === elemento)
+        .reduce((v,t) => {
+          if (t.tipo === "ingreso") { 
+            return v + Number(t.monto)
+          } else if (t.tipo === "egreso") { 
+            return v - Number(t.monto)
+          } 
+          return v 
+        },0)
+    }
+
+    monDiv.innerHTML = `
+      <div class="colMoneda__resumen"><p>${el.moneda}</p></div>
+      <div class="colMonto__resumen"><p>${formatCurrency(el.monto, el.moneda)}</p></div>
+    `
+
+    filaDiv.appendChild(monDiv)
+
+  }
+  )
+}
+
+
+
+
+//EJECUCIÓN DE TODO PARA INICIAR
+filterSelectorOptions();
 renderCarteras();
-
+resumenDeCuentas();
