@@ -180,10 +180,23 @@
   }
 
   /*RESUMEN DE CUENTAS */
+ .tabla_resumen {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    align-items: center;
+    font-weight: 500;
+    color: #2b5876;
+    border-bottom: 2px solid #b2bec3;
+    padding: 0.5rem 0;
+    background: #f7fafd;
+  }
+
 
   .filaResumen {
-    display: flex;
+    display: grid;
     font-weight: 400;
+    grid-template-columns: 33% 33% 33%;
+    align-items: center;
     font-size: 15px;
     color: #222;
     background: #e0eafc;
@@ -194,26 +207,42 @@
     transition: background 0.2s;
   }
 
-  .colMoneda__resumen, .colMonto__resumen{
+  .colMoneda__resumen, .colMonto__resumen_ARS, .colMonto__resumen_USD, .tituloTablaResumen, .tituloTablaResumen_moneda {
     margin-left: 1rem;
     padding: 1%;
     font-size: 20px;
   }
 
-  .colMoneda__resumen{
+  .colMoneda__resumen, .tituloTablaResumen, .tituloTablaResumen_moneda{
     font-weight: bold;
     width: 5%;
   }
 
-  .colMonto__resumen{
-    text-align: right;
-    margin-right: 5%;
+  .tituloTablaResumen{
+    text-align: left;
     width: 95%;
   }
 
+  .colMonto__resumen_ARS, .colMonto__resumen_USD, .tituloTablaResumen_moneda {
+    text-align: right;
+    margin-right: 5%;
+    width: 95%;
+  } 
+  
   .filaResumen:hover {
     background: #cfdef3;
   }
+
+  .tablaResumen__separador {
+    height: 2px;
+    background: #b2bec3;
+    width: 80%;
+    margin: 0.5rem auto;
+    border: none;
+    grid-column: 1 / -1; /* Ocupa todo el ancho del grid */
+  }
+
+  
 
   /* Responsive */
   @media (max-width: 900px) {

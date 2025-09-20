@@ -1,5 +1,15 @@
+import {
+  getDolarValue
+} from './getDolar.js'
+import {
+  carga,
+  eliminar,
+  eliminadoConfirmacion
+} from './notifications.js'
+
 let cartera = [];
-let movId = 0;
+let movId = 0;  
+
 
 // Importo la carter desde el archivo de JSON
 fetch('./json/cartera.json')
@@ -9,9 +19,19 @@ fetch('./json/cartera.json')
     movId = cartera.length+1; 
 
 
-    renderCarteras();
+    
+    let cotizacion = 0; 
+    getDolarValue()
+      .then( r => {
+        let cotizacion = r
+        console.log(cotizacion.oficial.price)
 
-    resumenDeCuentas();
+        renderCarteras();
+        resumenDeCuentas(cotizacion.oficial.price);
+      })
+      .catch(error => console.error("Error", error))
+
+    
   })
   .catch(error => console.error("Error cargando JSON ", error))
 
@@ -27,6 +47,8 @@ const tablaUSD = document.getElementById("tabla_USD");
 //Event listener para el formulario
 
 form.addEventListener("submit", function(event) {
+
+  carga();
 
   event.preventDefault();
 
@@ -48,8 +70,18 @@ form.addEventListener("submit", function(event) {
   };
 
   cartera.push(movimiento);
-  renderCarteras();
-  resumenDeCuentas();
+
+  let cotizacion = 0; 
+  getDolarValue()
+    .then( r => {
+      let cotizacion = r
+      console.log(cotizacion.oficial.price)
+
+      renderCarteras();
+      resumenDeCuentas(cotizacion.oficial.price);
+    })
+    .catch(error => console.error("Error", error))
+
   form.reset();
   console.log(movimiento);
 });
@@ -99,9 +131,26 @@ function renderCarteras() {
 //PAra aplicar formato currency
 
 function deleteElement(id) {
-  cartera = cartera.filter(movimiento => movimiento.id !== id);
-  renderCarteras();
-  resumenDeCuentas();
+  eliminar().then(
+    r => {
+      if( r === true ){
+        cartera = cartera.filter(movimiento => movimiento.id !== id);
+
+        let cotizacion = 0; 
+        getDolarValue()
+          .then( r => {
+            
+            let cotizacion = r
+            console.log(cotizacion.oficial.price)
+
+            renderCarteras();
+            resumenDeCuentas(cotizacion.oficial.price);
+            eliminadoConfirmacion();
+          })
+          .catch(error => console.error("Error", error))
+      }
+    }
+  )
 }
 
 function formatCurrency(valor, moneda) {
@@ -162,7 +211,12 @@ function filterSelectorOptions(){
 
 //RESUMEN DE CUENTAS
 
-function resumenDeCuentas(){
+let totalARS = 0;
+let totalUSD = 0;
+
+function resumenDeCuentas(coti){
+
+  let resumenArray = [];
 
   const mon = [... new Set(cartera.map(el => el.moneda))];
   console.log(mon)
@@ -174,10 +228,7 @@ function resumenDeCuentas(){
     const monDiv = document.createElement("div");
     monDiv.classList.add("filaResumen");
 
-
-    const el = {
-      moneda: elemento,
-      monto: cartera
+    const monto = cartera
         .filter(c => c.moneda === elemento)
         .reduce((v,t) => {
           if (t.tipo === "ingreso") { 
@@ -187,17 +238,43 @@ function resumenDeCuentas(){
           } 
           return v 
         },0)
+
+    let el = {
+      moneda: elemento,
+      monto: monto,
+      montoARS: (elemento === "ARS")*(monto)+(elemento === "USD")*(monto*Number(coti)),
+      montoUSD: (elemento === "ARS")*(monto/Number(coti))+(elemento === "USD")*(monto)
+        
     }
+
+    resumenArray.push(el)
 
     monDiv.innerHTML = `
       <div class="colMoneda__resumen"><p>${el.moneda}</p></div>
-      <div class="colMonto__resumen"><p>${formatCurrency(el.monto, el.moneda)}</p></div>
+      <div class="colMonto__resumen_ARS"><p>${formatCurrency(el.montoARS, "ARS")}</p></div>
+      <div class="colMonto__resumen_USD"><p>${formatCurrency(el.montoUSD, "USD")}</p></div>
     `
 
     filaDiv.appendChild(monDiv)
-
   }
   )
+
+  let totalARS = resumenArray.reduce((v, t) => v + Number(t.montoARS), 0);
+  let totalUSD = resumenArray.reduce((v, t) => v + Number(t.montoUSD), 0);
+  
+
+  const separador = document.createElement('div')
+  separador.classList.add('tablaResumen__separador')
+  filaDiv.appendChild( separador)
+  const total = document.createElement('div')
+  total.classList.add('filaResumen')
+  total.innerHTML = `
+    <div class="colMoneda__resumen"><p>TOTAL</p></div>
+    <div class="colMonto__resumen_ARS"><p>${formatCurrency(totalARS, "ARS")}</p></div>
+    <div class="colMonto__resumen_USD"><p>${formatCurrency(totalUSD, "USD")}</p></div>
+  `
+
+filaDiv.appendChild(total)
 }
 
 
